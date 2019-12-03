@@ -61,7 +61,7 @@ def image_align(src_file, dst_file, face_landmarks, output_size=1024, transform_
             quad -= crop[0:2]
 
         # Pad.
-        pad = (int(np.floor(min(quad[:,1]))), int(np.floor(min(quad[:,1]))), int(np.ceil(max(quad[:,1]))), int(np.ceil(max(quad[:,1]))))
+        pad = (int(np.floor(min(quad[:,1]))), int(np.floor(min(quad[:,2]))), int(np.ceil(max(quad[:,1]))), int(np.ceil(max(quad[:,2]))))
         pad = (max(-pad[0] + border, 0), max(-pad[1] + border, 0), max(pad[2] - img.size[0] + border, 0), max(pad[3] - img.size[1] + border, 0))
         if enable_padding and max(pad) > border - 4:
             pad = np.maximum(pad, int(np.rint(qsize * 0.3)))
