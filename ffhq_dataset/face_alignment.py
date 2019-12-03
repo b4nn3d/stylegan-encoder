@@ -53,7 +53,7 @@ def image_align(src_file, dst_file, face_landmarks, output_size=1024, transform_
             qsize /= shrink
 
         # Crop.
-        border = max(int(np.rint(qsize * 1000)), 3)
+        border = max(int(np.rint(qsize * 0.1)), 3)
         crop = (int(np.floor(min(quad[:,0]))), int(np.floor(min(quad[:,1]))), int(np.ceil(max(quad[:,0]))), int(np.ceil(max(quad[:,1]))))
         crop = (max(crop[0] - border, 0), max(crop[1] - border, 0), min(crop[2] + border, img.size[0]), min(crop[3] + border, img.size[1]))
         if crop[2] - crop[0] < img.size[0] or crop[3] - crop[1] < img.size[1]:
@@ -64,7 +64,7 @@ def image_align(src_file, dst_file, face_landmarks, output_size=1024, transform_
         pad = (int(np.floor(min(quad[:,0]))), int(np.floor(min(quad[:,1]))), int(np.ceil(max(quad[:,0]))), int(np.ceil(max(quad[:,1]))))
         pad = (max(-pad[0] + border, 0), max(-pad[1] + border, 0), max(pad[2] - img.size[0] + border, 0), max(pad[3] - img.size[1] + border, 0))
         if enable_padding and max(pad) > border - 4:
-            pad = np.maximum(pad, int(np.rint(qsize * 0.3)))
+            pad = np.maximum(pad, int(np.rint(qsize * 0.6)))
             img = np.pad(np.float32(img), ((pad[1], pad[3]), (pad[0], pad[2]), (0, 0)), 'reflect')
             h, w, _ = img.shape
             y, x, _ = np.ogrid[:h, :w, :1]
